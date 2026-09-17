@@ -349,7 +349,7 @@ export function CalculatorWidget({ compact = false }: Props) {
                       : "hsl(var(--surface))",
                   color:
                     parseINRInput(amountInput) === qa.value
-                      ? "white"
+                      ? "hsl(var(--primary-foreground))"
                       : "hsl(var(--foreground))",
                   cursor: "pointer",
                   transition: "all 0.15s",
@@ -432,7 +432,7 @@ export function CalculatorWidget({ compact = false }: Props) {
             fontWeight: 600,
             borderRadius: "var(--radius-sm)",
             border: "none",
-            color: "white",
+            color: "hsl(var(--primary-foreground))",
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
@@ -586,7 +586,7 @@ export function CalculatorWidget({ compact = false }: Props) {
                     borderRadius: "var(--radius-sm)",
                     border: "1px solid hsl(var(--border))",
                     background: "#25D366", // WhatsApp Green
-                    color: "white",
+                    color: "hsl(var(--primary-foreground))",
                     cursor: "pointer",
                   }}
                 >
@@ -640,7 +640,7 @@ export function CalculatorWidget({ compact = false }: Props) {
                 <button
                   onClick={() => setIsQrCodeVisible(!isQrCodeVisible)}
                   className="gradient-primary"
-                  style={{ width: "100%", padding: "10px", borderRadius: "var(--radius-sm)", color: "white", fontWeight: 600, border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
+                  style={{ width: "100%", padding: "10px", borderRadius: "var(--radius-sm)", color: "hsl(var(--primary-foreground))", fontWeight: 600, border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}
                 >
                   <Scan size={18} /> {isQrCodeVisible ? "Hide QR Code" : "Show Payment QR"}
                 </button>
@@ -667,7 +667,7 @@ export function CalculatorWidget({ compact = false }: Props) {
                   <label style={{ display: "block", fontSize: 12, marginBottom: 4, color: "hsl(var(--muted))" }}>UPI ID (VPA) for QR Code</label>
                   <input type="text" value={upiId} onChange={(e) => setUpiId(e.target.value)} placeholder="e.g. shop@okicici" style={{ width: "100%", padding: "8px", borderRadius: "var(--radius-sm)", border: "1px solid hsl(var(--border))", background: "hsl(var(--background))", color: "hsl(var(--foreground))" }} />
                 </div>
-                <button onClick={saveReceiptSettings} className="gradient-primary" style={{ padding: "8px 16px", borderRadius: "var(--radius-sm)", color: "white", fontWeight: 600, border: "none", cursor: "pointer", fontSize: 13 }}>
+                <button onClick={saveReceiptSettings} className="gradient-primary" style={{ padding: "8px 16px", borderRadius: "var(--radius-sm)", color: "hsl(var(--primary-foreground))", fontWeight: 600, border: "none", cursor: "pointer", fontSize: 13 }}>
                   Save & Apply
                 </button>
               </div>
@@ -852,6 +852,33 @@ export function CalculatorWidget({ compact = false }: Props) {
                 </span>
               )}
             </div>
+
+            {/* Split Suggestion */}
+            {result.estimatedMDR > 0 && result.input.amount > (result.thresholdAmount || 2000) && (
+              <div
+                style={{
+                  padding: "12px 16px",
+                  borderRadius: "var(--radius-sm)",
+                  background: "hsl(var(--success-light))",
+                  border: "1px dashed hsl(var(--success))",
+                  fontSize: 13,
+                  color: "hsl(var(--success))",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 8,
+                  marginBottom: 16,
+                }}
+              >
+                <Sparkles size={16} style={{ flexShrink: 0, marginTop: 2 }} />
+                <span style={{ fontWeight: 600 }}>
+                  Tip: To avoid MDR, split this into {Math.floor(result.input.amount / (result.thresholdAmount || 2000))} payments of ₹{(result.thresholdAmount || 2000).toLocaleString("en-IN")}
+                  {result.input.amount % (result.thresholdAmount || 2000) !== 0 
+                    ? ` and 1 payment of ₹${(result.input.amount % (result.thresholdAmount || 2000)).toLocaleString("en-IN")}`
+                    : ""}
+                  .
+                </span>
+              </div>
+            )}
 
             {/* Merchant-side label */}
             <div

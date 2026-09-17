@@ -92,7 +92,7 @@ export function ChatbotWidget() {
           display: isOpen ? "none" : "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "white",
+          color: "hsl(var(--primary-foreground))",
           boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.2)",
           zIndex: 9999,
         }}
@@ -137,7 +137,7 @@ export function ChatbotWidget() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                color: "white",
+                color: "hsl(var(--primary-foreground))",
               }}
             >
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -149,7 +149,7 @@ export function ChatbotWidget() {
                 style={{
                   background: "none",
                   border: "none",
-                  color: "white",
+                  color: "hsl(var(--primary-foreground))",
                   cursor: "pointer",
                   display: "flex",
                   padding: 4,
@@ -191,7 +191,7 @@ export function ChatbotWidget() {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: msg.role === "user" ? "white" : "hsl(var(--foreground))",
+                      color: msg.role === "user" ? "hsl(var(--primary-foreground))" : "hsl(var(--foreground))",
                       flexShrink: 0,
                     }}
                   >
@@ -202,7 +202,7 @@ export function ChatbotWidget() {
                       padding: "12px 16px",
                       borderRadius: "var(--radius-md)",
                       backgroundColor: msg.role === "user" ? "hsl(var(--primary))" : "hsl(var(--surface))",
-                      color: msg.role === "user" ? "white" : "hsl(var(--foreground))",
+                      color: msg.role === "user" ? "hsl(var(--primary-foreground))" : "hsl(var(--foreground))",
                       border: msg.role === "user" ? "none" : "1px solid hsl(var(--border))",
                       fontSize: 14,
                       lineHeight: 1.5,
@@ -281,7 +281,7 @@ export function ChatbotWidget() {
                     borderRadius: 22,
                     border: "none",
                     backgroundColor: "hsl(var(--primary))",
-                    color: "white",
+                    color: "hsl(var(--primary-foreground))",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",

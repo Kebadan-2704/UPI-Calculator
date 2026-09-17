@@ -4,16 +4,16 @@
 /* ─── Design System Tokens (Section 11) ─────────────────────────── */
 :root {
   /* Core palette (Light) */
-  --background: 0 0% 98%;           /* #fafafa */
+  --background: 40 25% 97%;         /* Pearl white */
   --foreground: 0 0% 9%;            /* #171717 */
-  --surface: 0 0% 100%;             /* #ffffff */
-  --surface-hover: 0 0% 96%;        /* #f5f5f5 */
+  --surface: 40 25% 99%;            /* Lighter pearl white */
+  --surface-hover: 40 25% 94%;      /* Darker pearl white hover */
 
-  /* Brand (Vercel style: Black/White primary) */
+  /* Brand */
   --primary: 0 0% 9%;               /* #171717 */
-  --primary-foreground: 0 0% 98%;   /* #fafafa */
+  --primary-foreground: 40 25% 97%; /* Pearl white primary-foreground */
   --primary-hover: 0 0% 20%;
-  --primary-light: 0 0% 90%;
+  --primary-light: 40 25% 90%;
 
   /* Semantic */
   --success: 142 72% 29%;           /* #16A34A */
@@ -54,13 +54,14 @@
 [data-theme="dark"] {
   /* Core palette (Dark) */
   --background: 0 0% 0%;            /* #000000 */
-  --foreground: 0 0% 93%;           /* #ededed */
+  --foreground: 40 20% 94%;         /* Pearl white text */
   --surface: 0 0% 4%;               /* #0a0a0a */
   --surface-hover: 0 0% 10%;        /* #1a1a1a */
 
-  --primary: 0 0% 93%;              /* #ededed */
+  /* Brand */
+  --primary: 40 20% 94%;            /* Pearl white primary */
   --primary-foreground: 0 0% 0%;    /* #000000 */
-  --primary-hover: 0 0% 80%;
+  --primary-hover: 40 20% 85%;
   --primary-light: 0 0% 12%;
 
   --success: 142 72% 45%;
@@ -74,7 +75,7 @@
   --muted-bg: 0 0% 10%;             /* #1a1a1a */
   --border: 0 0% 15%;               /* #262626 */
   --input-border: 0 0% 20%;
-  --ring: 0 0% 93%;
+  --ring: 40 20% 94%;
 
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
@@ -177,7 +178,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Gradient Accents (Removed - Using Solid Monochromatic) ─── */
 .gradient-primary {
   background: hsl(var(--foreground));
-  color: hsl(var(--background));
+  color: hsl(var(--background)) !important;
   border: 1px solid transparent;
   transition: all 0.2s ease;
 }

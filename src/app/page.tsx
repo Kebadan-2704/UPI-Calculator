@@ -238,7 +238,9 @@ export default function HomePage() {
                   href={tool.href}
                   className="card-surface"
                   style={{
-                    display: "block",
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
                     padding: 24,
                     textDecoration: "none",
                     color: "inherit",
@@ -292,7 +294,7 @@ export default function HomePage() {
                       fontSize: 13,
                       fontWeight: 600,
                       color: "hsl(var(--primary))",
-                      marginTop: 16,
+                      marginTop: "auto",
                     }}
                   >
                     Open tool <ArrowRight size={14} />
