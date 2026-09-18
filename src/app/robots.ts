@@ -1,14 +1,13 @@
 import { MetadataRoute } from 'next';
+import { siteConfig } from '@/lib/seo/siteConfig';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://upicostcalculator.com';
-
   return {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/admin', '/api/private'],
+      disallow: ['/admin', '/api/private', '/dashboard'],
     },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }

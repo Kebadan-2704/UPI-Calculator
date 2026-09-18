@@ -155,8 +155,16 @@ export function Header() {
                   style={{ position: "relative" }}
                   onMouseEnter={() => setDropdownOpen(item.label)}
                   onMouseLeave={() => setDropdownOpen(null)}
+                  onFocus={() => setDropdownOpen(item.label)}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget)) {
+                      setDropdownOpen(null);
+                    }
+                  }}
                 >
                   <button
+                    aria-haspopup="true"
+                    aria-expanded={dropdownOpen === item.label}
                     style={{
                       display: "flex",
                       alignItems: "center",

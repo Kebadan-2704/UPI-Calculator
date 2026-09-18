@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* Fonts loaded via preload link in layout.tsx to avoid render-blocking */
 @import "tailwindcss";
 
 /* ─── Design System Tokens (Section 11) ─────────────────────────── */
@@ -267,3 +267,80 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
   padding: 0 calc(var(--spacing-unit) * 3);
 }
+
+/* ─── Skip Link (Accessibility) ──────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* ─── Print Stylesheet ───────────────────────────────────────────── */
+@media print {
+  /* Hide non-essential UI */
+  header,
+  footer,
+  nav,
+  .skip-link,
+  [data-html2canvas-ignore],
+  button:not([data-print-visible]) {
+    display: none !important;
+  }
+
+  /* Reset backgrounds for printing */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt;
+  }
+
+  .card-surface {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+
+  /* Ensure calculator results are visible */
+  .amount-display {
+    color: black !important;
+  }
+
+  /* Show URLs for external links */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+    color: #666;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 2cm;
+  }
+
+  /* Add print footer */
+  main::after {
+    content: "Calculated at upicost.in · Results are estimates based on reported rules.";
+    display: block;
+    margin-top: 24pt;
+    padding-top: 12pt;
+    border-top: 1px solid #ccc;
+    font-size: 9pt;
+    color: #999;
+  }
+}
+

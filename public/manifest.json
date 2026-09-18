@@ -1,11 +1,13 @@
 {
-  "name": "UPI Cost & Rules Platform",
+  "name": "UPI Cost Calculator — MDR & Payment Charges",
   "short_name": "UPI Cost",
-  "description": "Calculate and understand UPI merchant MDR costs instantly.",
+  "description": "Calculate and understand UPI merchant MDR costs instantly. Free, source-backed calculator for Indian UPI transactions.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F8FAFC",
-  "theme_color": "#4F46E5",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "categories": ["finance", "utilities"],
+  "lang": "en-IN",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -16,6 +18,12 @@
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }

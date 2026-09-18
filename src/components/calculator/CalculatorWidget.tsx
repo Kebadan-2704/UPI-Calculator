@@ -28,6 +28,7 @@ import type { CalculationResult } from "@/lib/rules/types";
 import { MDRChart } from "./MDRChart";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useHistoryStore } from "@/lib/store/historyStore";
+import { siteConfig } from "@/lib/seo/siteConfig";
 
 const QUICK_AMOUNTS = [
   { label: "₹1,999", value: 1999 },
@@ -278,6 +279,8 @@ export function CalculatorWidget({ compact = false }: Props) {
               value={amountInput}
               onChange={handleAmountChange}
               onKeyDown={handleKeyDown}
+              aria-invalid={!!error}
+              aria-describedby={error ? "calc-error" : undefined}
               style={{
                 width: "100%",
                 padding: "20px 16px 20px 48px",
@@ -376,6 +379,8 @@ export function CalculatorWidget({ compact = false }: Props) {
             {t("transactionType")}
           </label>
           <div
+            role="group"
+            aria-label="Transaction Type"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -469,6 +474,9 @@ export function CalculatorWidget({ compact = false }: Props) {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="card-surface"
             ref={resultCardRef}
+            role="region"
+            aria-label="Calculation Result"
+            aria-live="polite"
             style={{ 
               marginTop: compact ? 16 : 0, 
               padding: compact ? 24 : 32, 
@@ -573,7 +581,7 @@ export function CalculatorWidget({ compact = false }: Props) {
                 <button
                   onClick={() => {
                     if (!result) return;
-                    const text = `Hey! The UPI fee for this ${formatINR(result.input.amount)} payment will be ${formatINR(result.estimatedMDR)}. Check the full breakdown here: https://upicost.in`;
+                    const text = `Hey! The UPI fee for this ${formatINR(result.input.amount)} payment will be ${formatINR(result.estimatedMDR)}. Check the full breakdown here: ${siteConfig.url}`;
                     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
                   }}
                   title="Share to WhatsApp"

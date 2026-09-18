@@ -1,10 +1,14 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { HelpCircle, ArrowRight } from "lucide-react";
+import { generateFAQSchema, generateBreadcrumbSchema, schemaToScriptProps } from "@/lib/seo/schemas";
 
 export const metadata: Metadata = {
   title: "FAQ — UPI MDR Questions Answered",
-  description: "Frequently asked questions about UPI merchant discount rates, charges, thresholds, caps, and how they affect payments.",
+  description: "Frequently asked questions about UPI merchant discount rates, charges, thresholds, caps, and how they affect payments in India.",
+  alternates: {
+    canonical: "/faq",
+  },
 };
 
 const FAQ_DATA = [
@@ -82,82 +86,96 @@ const FAQ_DATA = [
   },
 ];
 
+// Flatten all FAQs for schema
+const allFaqs = FAQ_DATA.flatMap((section) => section.items);
+
 export default function FAQPage() {
+  const faqSchema = generateFAQSchema(allFaqs);
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: "Home", path: "/" },
+    { name: "FAQ", path: "/faq" },
+  ]);
+
   return (
-    <section style={{ padding: "48px 0" }}>
-      <div className="container-narrow">
-        <div style={{ textAlign: "center", marginBottom: 40 }}>
-          <div
-            style={{
-              display: "inline-flex", alignItems: "center", justifyContent: "center",
-              width: 56, height: 56, borderRadius: "var(--radius-md)",
-              background: "hsl(var(--primary-light))", marginBottom: 16,
-            }}
-          >
-            <HelpCircle size={28} style={{ color: "hsl(var(--primary))" }} />
-          </div>
-          <h1 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: 12 }}>
-            Frequently Asked Questions
-          </h1>
-          <p style={{ fontSize: 16, color: "hsl(var(--muted))", maxWidth: 520, margin: "0 auto", lineHeight: 1.6 }}>
-            Everything you need to know about UPI MDR, charges, thresholds, and how they affect your payments.
-          </p>
-        </div>
+    <>
+      <script {...schemaToScriptProps(faqSchema)} />
+      <script {...schemaToScriptProps(breadcrumbSchema)} />
 
-        {FAQ_DATA.map((section) => (
-          <div key={section.category} style={{ marginBottom: 40 }}>
-            <h2 style={{
-              fontSize: 13, fontWeight: 700, textTransform: "uppercase",
-              letterSpacing: "0.08em", color: "hsl(var(--primary))",
-              marginBottom: 16, paddingBottom: 8,
-              borderBottom: "2px solid hsl(var(--primary) / 0.2)",
-            }}>
-              {section.category}
-            </h2>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {section.items.map((item) => (
-                <details
-                  key={item.q}
-                  className="card-surface"
-                  style={{ borderRadius: "var(--radius-md)", cursor: "pointer" }}
-                >
-                  <summary style={{
-                    padding: "18px 20px", fontSize: 15, fontWeight: 600,
-                    listStyle: "none", display: "flex", alignItems: "center",
-                    justifyContent: "space-between",
-                  }}>
-                    {item.q}
-                    <span style={{ color: "hsl(var(--muted))", fontSize: 18, flexShrink: 0, marginLeft: 12 }}>+</span>
-                  </summary>
-                  <div style={{
-                    padding: "0 20px 18px", fontSize: 14,
-                    color: "hsl(var(--muted))", lineHeight: 1.8,
-                  }}>
-                    {item.a}
-                  </div>
-                </details>
-              ))}
+      <section style={{ padding: "48px 0" }}>
+        <div className="container-narrow">
+          <div style={{ textAlign: "center", marginBottom: 40 }}>
+            <div
+              style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                width: 56, height: 56, borderRadius: "var(--radius-md)",
+                background: "hsl(var(--primary-light))", marginBottom: 16,
+              }}
+            >
+              <HelpCircle size={28} style={{ color: "hsl(var(--primary))" }} />
             </div>
+            <h1 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 800, letterSpacing: "-0.03em", marginBottom: 12 }}>
+              Frequently Asked Questions
+            </h1>
+            <p style={{ fontSize: 16, color: "hsl(var(--muted))", maxWidth: 520, margin: "0 auto", lineHeight: 1.6 }}>
+              Everything you need to know about UPI MDR, charges, thresholds, and how they affect your payments.
+            </p>
           </div>
-        ))}
 
-        <div style={{ textAlign: "center", marginTop: 32 }}>
-          <p style={{ fontSize: 14, color: "hsl(var(--muted))", marginBottom: 16 }}>
-            Have more questions? Try calculating your specific scenario.
-          </p>
-          <Link
-            href="/calculator"
-            className="gradient-primary"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              padding: "12px 28px", borderRadius: "var(--radius-sm)",
-              color: "white", textDecoration: "none", fontWeight: 600, fontSize: 15,
-            }}
-          >
-            Open Calculator <ArrowRight size={16} />
-          </Link>
+          {FAQ_DATA.map((section) => (
+            <div key={section.category} style={{ marginBottom: 40 }}>
+              <h2 style={{
+                fontSize: 13, fontWeight: 700, textTransform: "uppercase",
+                letterSpacing: "0.08em", color: "hsl(var(--primary))",
+                marginBottom: 16, paddingBottom: 8,
+                borderBottom: "2px solid hsl(var(--primary) / 0.2)",
+              }}>
+                {section.category}
+              </h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {section.items.map((item) => (
+                  <details
+                    key={item.q}
+                    className="card-surface"
+                    style={{ borderRadius: "var(--radius-md)", cursor: "pointer" }}
+                  >
+                    <summary style={{
+                      padding: "18px 20px", fontSize: 15, fontWeight: 600,
+                      listStyle: "none", display: "flex", alignItems: "center",
+                      justifyContent: "space-between",
+                    }}>
+                      {item.q}
+                      <span style={{ color: "hsl(var(--muted))", fontSize: 18, flexShrink: 0, marginLeft: 12 }}>+</span>
+                    </summary>
+                    <div style={{
+                      padding: "0 20px 18px", fontSize: 14,
+                      color: "hsl(var(--muted))", lineHeight: 1.8,
+                    }}>
+                      {item.a}
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          <div style={{ textAlign: "center", marginTop: 32 }}>
+            <p style={{ fontSize: 14, color: "hsl(var(--muted))", marginBottom: 16 }}>
+              Have more questions? Try calculating your specific scenario.
+            </p>
+            <Link
+              href="/calculator"
+              className="gradient-primary"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                padding: "12px 28px", borderRadius: "var(--radius-sm)",
+                color: "hsl(var(--primary-foreground))", textDecoration: "none", fontWeight: 600, fontSize: 15,
+              }}
+            >
+              Open Calculator <ArrowRight size={16} />
+            </Link>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
