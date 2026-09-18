@@ -14,7 +14,7 @@ export const siteConfig = {
   shortName: "UPI Cost",
 
   /** Production URL — no trailing slash */
-  url: process.env.NEXT_PUBLIC_BASE_URL || "https://upicost.in",
+  url: process.env.NEXT_PUBLIC_BASE_URL || "https://upi-calculator-pink.vercel.app",
 
   /** Site description for default metadata */
   description:
